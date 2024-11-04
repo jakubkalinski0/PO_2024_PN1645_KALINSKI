@@ -32,4 +32,8 @@ public class Simulation {
             System.out.println("Zwierzę " + i%numberOfAnimals + ": " + currentAnimal);
         }
     }
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
 }
