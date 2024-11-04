@@ -3,7 +3,6 @@ package agh.ics.oop.model;
 public enum MapDirection {
     NORTH, EAST, SOUTH, WEST;
 
-    // toString String method
     public String toString() {
         return switch (this) {
             case NORTH -> "Północ";
@@ -13,7 +12,6 @@ public enum MapDirection {
         };
     }
 
-    // next method
     public MapDirection next() {
         return switch (this) {
             case EAST -> SOUTH;
@@ -23,7 +21,6 @@ public enum MapDirection {
         };
     }
 
-    // previous method
     public MapDirection previous() {
         return switch (this) {
             case EAST -> NORTH;
