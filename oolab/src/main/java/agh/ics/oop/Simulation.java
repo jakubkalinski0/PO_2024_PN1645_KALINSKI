@@ -7,33 +7,37 @@ import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.WorldMap;
 
 public class Simulation {
     private final List<Animal> animals;
     private final List<MoveDirection> directions;
-//    private final List<Vector2d> positions; not needed because it isn't used later as it only serves to create animals
+    private final WorldMap map;
 
-    public Simulation(List<Vector2d> positions, List<MoveDirection> directions) {
-//        this.positions = positions; not needed because it isn't used later as it only serves to create animals
+    public Simulation(List<Vector2d> positions, List<MoveDirection> directions, WorldMap map) {
         this.directions = directions;
         this.animals = new ArrayList<>();
+        this.map = map;
 
         for (Vector2d position : positions) {
             Animal newAnimal = new Animal(MapDirection.NORTH, position);
-            this.animals.add(newAnimal);
+            if (map.place(newAnimal)) {
+                this.animals.add(newAnimal);
+            }
         }
     }
 
     public void run() {
         int numberOfAnimals = animals.size();
+        System.out.println(map);
         for (int i = 0; i < directions.size(); i++) {
             Animal currentAnimal = animals.get(i%numberOfAnimals);
-            currentAnimal.move(directions.get(i));
-            System.out.println("Zwierzę " + i%numberOfAnimals + ": " + currentAnimal);
+            map.move(currentAnimal, directions.get(i));
+            System.out.println(map);
         }
     }
 
     public List<Animal> getAnimals() {
-        return animals;
+        return List.copyOf(animals);
     }
 }
