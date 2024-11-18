@@ -2,13 +2,14 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.model.util.MapVisualizer;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import static java.lang.Math.sqrt;
 
-public class GrassField implements WorldMap {
+public class GrassField extends AbstractWorldMap {
     private final int grassCount;
     protected Vector2d lowerLeft;
     protected Vector2d upperRight;
@@ -30,6 +31,9 @@ public class GrassField implements WorldMap {
         Random random = new Random();
         int maxRange = (int) Math.sqrt(grassCount*10);
 
+        // in order to test placing the grass
+        random.setSeed(123456789);
+
         while (grassMap.size() < grassCount) {
             int x = random.nextInt(maxRange+1);
             int y = random.nextInt(maxRange+1);
@@ -43,42 +47,23 @@ public class GrassField implements WorldMap {
 
     @Override
     public WorldElement objectAt(Vector2d position) {
-        if (animalMap.get(position) != null) {return animalMap.get(position);}
-        if (grassMap.get(position) != null) {return grassMap.get(position);}
-        return null;
-    }
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        return !(objectAt(position) instanceof Animal);
-    }
-
-    @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            animalMap.put(animal.getPosition(), animal);
-            return true;
+        WorldElement animal = super.objectAt(position);
+        if (animal == null) {
+            return grassMap.get(position);
         }
-        return false;
+        return animal;
     }
 
     @Override
-    public void move(Animal animal, MoveDirection orientation) {
-        Vector2d oldPosition = animal.getPosition();
-        animal.move(orientation, this);
-        animalMap.remove(oldPosition);
-        animalMap.put(animal.getPosition(), animal);
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return objectAt(position) != null;
+    public Collection<WorldElement> getElements() {
+        Collection<WorldElement> elements = super.getElements();
+        elements.addAll(grassMap.values());
+        return elements;
     }
 
     @Override
     public String toString() {
         if (animalMap.isEmpty() && grassMap.isEmpty()) {
-            System.out.println("Puste");
             return mapVisualizer.draw(new Vector2d(0,0), new Vector2d(0,0));
         }
         Vector2d mapLeftBottom = new Vector2d(upperRight.getX(), upperRight.getY());
@@ -91,8 +76,6 @@ public class GrassField implements WorldMap {
             mapLeftBottom = mapLeftBottom.lowerLeft(grass.getPosition());
             mapRightTop = mapRightTop.upperRight(grass.getPosition());
         }
-        System.out.println(mapLeftBottom);
-        System.out.println(mapRightTop);
         return mapVisualizer.draw(mapLeftBottom, mapRightTop);
     }
 }
