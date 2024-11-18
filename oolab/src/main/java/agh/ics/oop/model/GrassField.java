@@ -1,12 +1,14 @@
 package agh.ics.oop.model;
 
 import agh.ics.oop.model.util.MapVisualizer;
+import agh.ics.oop.model.util.RandomPositionGenerator;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+//import java.util.Random;
 
+import static java.lang.Math.max;
 import static java.lang.Math.sqrt;
 
 public class GrassField extends AbstractWorldMap {
@@ -28,20 +30,27 @@ public class GrassField extends AbstractWorldMap {
     }
 
     private void placeGrassRandomly(int grassCount) {
-        Random random = new Random();
+//        Random random = new Random();
         int maxRange = (int) Math.sqrt(grassCount*10);
 
-        // in order to test placing the grass
-        random.setSeed(123456789);
+//        in order to test placing the grass
+//        random.setSeed(123456789);
 
-        while (grassMap.size() < grassCount) {
-            int x = random.nextInt(maxRange+1);
-            int y = random.nextInt(maxRange+1);
-            Vector2d position = new Vector2d(x, y);
+//        niedeterministyczne losowanie pozycji
+//        while (grassMap.size() < grassCount) {
+//            int x = random.nextInt(maxRange+1);
+//            int y = random.nextInt(maxRange+1);
+//            Vector2d position = new Vector2d(x, y);
+//
+//            if (!grassMap.containsKey(position)) {
+//                grassMap.put(position, new Grass(position));
+//            }
+//        }
 
-            if (!grassMap.containsKey(position)) {
-                grassMap.put(position, new Grass(position));
-            }
+//        deterministyczne losowanie pozycji
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(maxRange, maxRange, grassCount);
+        for (Vector2d grassPosition : randomPositionGenerator) {
+            grassMap.put(grassPosition, new Grass(grassPosition));
         }
     }
 
