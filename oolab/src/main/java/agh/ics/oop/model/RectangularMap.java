@@ -23,4 +23,9 @@ public class RectangularMap extends AbstractWorldMap {
     public String toString() {
         return mapVisualizer.draw(lowerLeft, upperRight);
     }
+
+    @Override
+    public boolean canMoveTo(Vector2d position) {
+        return position.follows(lowerLeft) && position.precedes(upperRight) && super.canMoveTo(position);
+    }
 }

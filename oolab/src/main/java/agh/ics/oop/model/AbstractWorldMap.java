@@ -4,8 +4,6 @@ import agh.ics.oop.model.util.MapVisualizer;
 import java.util.*;
 
 abstract class AbstractWorldMap implements WorldMap {
-    protected Vector2d lowerLeft = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    protected Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     protected final Map<Vector2d, Animal> animalMap;
     protected final MapVisualizer mapVisualizer;
 
@@ -26,7 +24,8 @@ abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return position.follows(lowerLeft) && position.precedes(upperRight) && !(objectAt(position) instanceof Animal);
+        // position.follows(lowerLeft) && position.precedes(upperRight) - ta część tylko w rectangular - do poprawy
+        return !(objectAt(position) instanceof Animal);
     }
 
     @Override

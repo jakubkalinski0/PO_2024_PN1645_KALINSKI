@@ -171,7 +171,7 @@ class SimulationTest {
 
         Animal animal = animals.get(0);
         assertTrue(animal.getOrientation() == MapDirection.EAST);
-        assertTrue(animal.getPosition().equals(new Vector2d(-1, 1)));
+        assertTrue(animal.getPosition().equals(new Vector2d(0, 1)));
     }
 
     @Test
@@ -193,7 +193,7 @@ class SimulationTest {
         assertTrue(animal1.getOrientation().equals(MapDirection.NORTH));
 
         Animal animal2 = animals.get(1);
-        assertEquals(animal2.getPosition(),new Vector2d(-1, 1));
+        assertEquals(animal2.getPosition(),new Vector2d(0, 1));
         assertTrue(animal2.getOrientation().equals(MapDirection.WEST));
     }
 
