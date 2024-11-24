@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
-public class Animal {
+public class Animal implements WorldElement {
     private MapDirection orientation;
     private Vector2d position;
 
@@ -31,7 +31,7 @@ public class Animal {
         return this.position.equals(position);
     }
 
-    public void move(MoveDirection direction, RectangularMap map) {
+    public void move(MoveDirection direction, WorldMap map) {
         switch (direction) {
             case LEFT -> this.orientation = this.orientation.previous();
             case RIGHT -> this.orientation = this.orientation.next();

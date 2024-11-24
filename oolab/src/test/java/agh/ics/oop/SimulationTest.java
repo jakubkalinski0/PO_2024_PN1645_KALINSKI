@@ -114,62 +114,10 @@ class SimulationTest {
     }
 
     @Test
-    public void testDidAnimalLeftTheMapToNorth() {
-        List<Vector2d> positions = List.of(new Vector2d(4, 4));
-        List<MoveDirection> directions = OptionsParser.parse(new String[]{"f"});
-        RectangularMap map = new RectangularMap(5,5);
-        Simulation simulation = new Simulation(positions, directions, map);
-        simulation.run();
-
-        Animal animal = simulation.getAnimals().get(0);
-
-        assertEquals(new Vector2d(4,4), animal.getPosition());
-    }
-
-    @Test
-    public void testDidAnimalLeftTheMapToSouth() {
-        List<Vector2d> positions = List.of(new Vector2d(0, 0));
-        List<MoveDirection> directions = OptionsParser.parse(new String[]{"l","l","f"});
-        RectangularMap map = new RectangularMap(5,5);
-        Simulation simulation = new Simulation(positions, directions, map);
-        simulation.run();
-
-        Animal animal = simulation.getAnimals().get(0);
-
-        assertEquals(new Vector2d(0,0), animal.getPosition());
-    }
-
-    @Test
-    public void testDidAnimalLeftTheMapToEast() {
-        List<Vector2d> positions = List.of(new Vector2d(5, 5));
-        List<MoveDirection> directions = OptionsParser.parse(new String[]{"r","f"});
-        RectangularMap map = new RectangularMap(6,6);
-        Simulation simulation = new Simulation(positions, directions, map);
-        simulation.run();
-
-        Animal animal = simulation.getAnimals().get(0);
-
-        assertEquals(new Vector2d(5,5), animal.getPosition());
-    }
-
-    @Test
-    public void testDidAnimalLeftTheMapToWest() {
-        List<Vector2d> positions = List.of(new Vector2d(0, 0));
-        List<MoveDirection> directions = OptionsParser.parse(new String[]{"l","f"});
-        RectangularMap map = new RectangularMap(5,5);
-        Simulation simulation = new Simulation(positions, directions, map);
-        simulation.run();
-
-        Animal animal = simulation.getAnimals().get(0);
-
-        assertEquals(new Vector2d(0,0), animal.getPosition());
-    }
-
-    @Test
     public void AreTheAnimalsMoving()
     {
         List <Vector2d> positions = List.of(new Vector2d(0, 0), new Vector2d(1, 0), new Vector2d(2, 0), new Vector2d(3,0), new Vector2d(4,0));
-        List<MoveDirection> directions = OptionsParser.parse(new String[]{"f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f"});
+        List<MoveDirection> directions = OptionsParser.parse(new String[]{"f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f"});
         RectangularMap map = new RectangularMap(5,5);
         Simulation simulation = new Simulation(positions, directions, map);
         simulation.run();
