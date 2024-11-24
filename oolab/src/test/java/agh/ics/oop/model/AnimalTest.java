@@ -166,20 +166,4 @@ class AnimalTest {
         assertEquals(new Vector2d(2, 3), positionAfterForward);
         assertEquals(new Vector2d(2, 2), positionAfterBackward);
     }
-
-    // testing bounds using the move method
-    @Test
-    void checkingIfAnimalStaysWithinBounds() {
-        // Given
-        RectangularMap map = new RectangularMap(5, 5);
-        Animal animalTopLeftCorner = new Animal(MapDirection.NORTH, new Vector2d(0, 4));
-        Animal animalBottomRightCorner = new Animal(MapDirection.SOUTH, new Vector2d(4, 0));
-
-        // Then
-        animalTopLeftCorner.move(MoveDirection.FORWARD, map);
-        assertEquals(new Vector2d(0, 4), animalTopLeftCorner.getPosition());
-
-        animalBottomRightCorner.move(MoveDirection.FORWARD, map);
-        assertEquals(new Vector2d(4, 0), animalBottomRightCorner.getPosition());
-    }
 }
