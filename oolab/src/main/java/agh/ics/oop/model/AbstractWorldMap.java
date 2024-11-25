@@ -58,13 +58,11 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     @Override
-    public Boundary getBoundary() {
-        return new Boundary(lowerLeft, upperRight);
-    }
+    public abstract Boundary getCurrentBounds();
 
     @Override
     public String toString() {
-        return mapVisualizer.draw(getBoundary().lowerLeft(), getBoundary().upperRight());
+        return mapVisualizer.draw(getCurrentBounds().lowerLeft(), getCurrentBounds().upperRight());
     }
 
     public void addObserver(MapChangeListener observer) {
