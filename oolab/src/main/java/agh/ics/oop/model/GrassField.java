@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
 import agh.ics.oop.model.util.RandomPositionGenerator;
 
@@ -33,22 +34,6 @@ public class GrassField extends AbstractWorldMap {
     private void placeGrassRandomly(int grassCount) {
 //        Random random = new Random();
         int maxRange = (int) Math.sqrt(grassCount*10);
-
-//        in order to test placing the grass
-//        random.setSeed(123456789);
-
-//        niedeterministyczne losowanie pozycji
-//        while (grassMap.size() < grassCount) {
-//            int x = random.nextInt(maxRange+1);
-//            int y = random.nextInt(maxRange+1);
-//            Vector2d position = new Vector2d(x, y);
-//
-//            if (!grassMap.containsKey(position)) {
-//                grassMap.put(position, new Grass(position));
-//            }
-//        }
-
-//        deterministyczne losowanie pozycji
         RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(maxRange, maxRange, grassCount);
         for (Vector2d grassPosition : randomPositionGenerator) {
             grassMap.put(grassPosition, new Grass(grassPosition));
@@ -71,11 +56,9 @@ public class GrassField extends AbstractWorldMap {
         return elements;
     }
 
+
     @Override
-    public String toString() {
-        if (animalMap.isEmpty() && grassMap.isEmpty()) {
-            return mapVisualizer.draw(new Vector2d(0,0), new Vector2d(0,0));
-        }
+    public Boundary getBoundary() {
         Vector2d mapLeftBottom = new Vector2d(upperRight.getX(), upperRight.getY());
         Vector2d mapRightTop = new Vector2d(lowerLeft.getX(), lowerLeft.getY());
         for (WorldElement animal : animalMap.values()) {
@@ -86,6 +69,6 @@ public class GrassField extends AbstractWorldMap {
             mapLeftBottom = mapLeftBottom.lowerLeft(grass.getPosition());
             mapRightTop = mapRightTop.upperRight(grass.getPosition());
         }
-        return mapVisualizer.draw(mapLeftBottom, mapRightTop);
+        return new Boundary(mapLeftBottom, mapRightTop);
     }
 }

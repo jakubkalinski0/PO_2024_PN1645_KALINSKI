@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.IncorrectPositionException;
 
 import java.awt.*;
@@ -45,5 +46,13 @@ public interface WorldMap extends MoveValidator {
      */
     WorldElement objectAt(Vector2d position);
 
+    /**
+     * Return a collection of all elements (animals and grass) on the map.
+     */
     Collection<WorldElement> getElements();
+
+    /**
+     * Return the current map boundaries.
+     */
+    Boundary getBoundary();
 }

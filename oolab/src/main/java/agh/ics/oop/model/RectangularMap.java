@@ -20,10 +20,6 @@ public class RectangularMap extends AbstractWorldMap {
         this.upperRight = new Vector2d(this.width-1, this.height-1);
     }
 
-    public String toString() {
-        return mapVisualizer.draw(lowerLeft, upperRight);
-    }
-
     @Override
     public boolean canMoveTo(Vector2d position) {
         return position.follows(lowerLeft) && position.precedes(upperRight) && super.canMoveTo(position);
