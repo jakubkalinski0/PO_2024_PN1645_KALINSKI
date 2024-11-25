@@ -4,10 +4,7 @@ import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
 import agh.ics.oop.model.util.RandomPositionGenerator;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 //import java.util.Random;
 
 import static java.lang.Math.max;
@@ -61,14 +58,12 @@ public class GrassField extends AbstractWorldMap {
     public Boundary getBoundary() {
         Vector2d mapLeftBottom = new Vector2d(upperRight.getX(), upperRight.getY());
         Vector2d mapRightTop = new Vector2d(lowerLeft.getX(), lowerLeft.getY());
-        for (WorldElement animal : animalMap.values()) {
-            mapLeftBottom = mapLeftBottom.lowerLeft(animal.getPosition());
-            mapRightTop = mapRightTop.upperRight(animal.getPosition());
+        Collection<WorldElement> elements = getElements();
+        for (WorldElement element : elements) {
+            mapLeftBottom = mapLeftBottom.lowerLeft(element.getPosition());
+            mapRightTop = mapRightTop.upperRight(element.getPosition());
         }
-        for (WorldElement grass : grassMap.values()) {
-            mapLeftBottom = mapLeftBottom.lowerLeft(grass.getPosition());
-            mapRightTop = mapRightTop.upperRight(grass.getPosition());
-        }
+
         return new Boundary(mapLeftBottom, mapRightTop);
     }
 }
