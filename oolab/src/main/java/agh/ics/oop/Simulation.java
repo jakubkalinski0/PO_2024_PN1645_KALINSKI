@@ -8,6 +8,7 @@ import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.util.IncorrectPositionException;
 
 public class Simulation {
     private final List<Animal> animals;
@@ -20,9 +21,14 @@ public class Simulation {
         this.map = map;
 
         for (Vector2d position : positions) {
-            Animal newAnimal = new Animal(MapDirection.NORTH, position);
-            if (map.place(newAnimal)) {
-                this.animals.add(newAnimal);
+            try {
+                Animal newAnimal = new Animal(MapDirection.NORTH, position);
+                if (map.place(newAnimal)) {
+                    this.animals.add(newAnimal);
+                }
+            }
+            catch (IncorrectPositionException e) {
+                System.out.println("Warning: " + e.getMessage());
             }
         }
     }
@@ -33,7 +39,6 @@ public class Simulation {
         for (int i = 0; i < directions.size(); i++) {
             Animal currentAnimal = animals.get(i%numberOfAnimals);
             map.move(currentAnimal, directions.get(i));
-            System.out.println(map);
         }
     }
 

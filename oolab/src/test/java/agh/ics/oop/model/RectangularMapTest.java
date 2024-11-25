@@ -1,4 +1,5 @@
 package agh.ics.oop.model;
+import agh.ics.oop.model.util.IncorrectPositionException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +8,12 @@ class RectangularMapTest {
     public void DoesMapWorkBasic(){
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal = new Animal();
+        try {
         map.place(animal);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
         map.move(animal, MoveDirection.FORWARD);
         assertEquals(new Vector2d(2, 3), animal.getPosition());
     }
@@ -17,8 +23,12 @@ class RectangularMapTest {
         RectangularMap map = new RectangularMap(100, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
+        try {
         assertTrue(map.place(animal1));
-        assertFalse(map.place(animal2));
+        } catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        assertThrows(IncorrectPositionException.class, () -> map.place(animal2));
     }
 
     @Test
@@ -26,8 +36,18 @@ class RectangularMapTest {
         RectangularMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            map.place(animal1);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
+            map.place(animal2);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertTrue(map.isOccupied(new Vector2d(2, 2)));
         assertTrue(map.isOccupied(new Vector2d(2, 3)));
         assertFalse(map.isOccupied(new Vector2d(2, 4)));
@@ -39,8 +59,18 @@ class RectangularMapTest {
         RectangularMap map = new RectangularMap(4, 4);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.NORTH, new Vector2d(2, 3));
+        try {
         map.place(animal1);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
         map.place(animal2);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
         assertEquals(animal2, map.objectAt(new Vector2d(2, 3)));
     }
@@ -49,7 +79,12 @@ class RectangularMapTest {
     public void CanMoveToOccupied(){
         RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal();
+        try {
         map.place(animal1);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertTrue(map.canMoveTo(new Vector2d(2, 3)));
         assertFalse(map.canMoveTo(new Vector2d(2, 2)));
     }
@@ -59,8 +94,18 @@ class RectangularMapTest {
         RectangularMap map = new RectangularMap(55, 4);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(3, 2));
+        try {
         map.place(animal1);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
         map.place(animal2);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
         map.move(animal1, MoveDirection.FORWARD);
         map.move(animal2, MoveDirection.FORWARD);
         assertEquals(new Vector2d(2, 3), animal1.getPosition());
@@ -72,8 +117,18 @@ class RectangularMapTest {
         RectangularMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            map.place(animal1);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
+            map.place(animal2);
+        }
+        catch (IncorrectPositionException e){
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertFalse(map.canMoveTo(new Vector2d(2, 3)));
     }
 
