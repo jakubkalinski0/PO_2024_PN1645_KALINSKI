@@ -1,6 +1,8 @@
 package agh.ics.oop.model;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import agh.ics.oop.model.util.IncorrectPositionException;
 import org.junit.jupiter.api.Test;
 
 // testy:
@@ -21,28 +23,38 @@ class GrassFieldTest {
         Animal animal = new Animal(MapDirection.NORTH, new Vector2d(2, 2));
 
         //when
-        boolean result = map.place(animal);
+        try {
+        map.place(animal);
+        }
+        catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
 
         //then
-        assertTrue(result);
         assertEquals(animal, map.objectAt(new Vector2d(2, 2)));
     }
 
     @Test
     void placeAnimalOnOccupiedPosition() {
-        //given
+        // given
         GrassField map = new GrassField(0);
         Animal animal1 = new Animal(MapDirection.NORTH, new Vector2d(2, 2));
         Animal animal2 = new Animal(MapDirection.NORTH, new Vector2d(2, 2));
-        map.place(animal1);
 
-        //when
-        boolean result = map.place(animal2);
+        // when
+        try {
+            map.place(animal1);
+        } catch (IncorrectPositionException e) {
+            fail("Unexpected exception when placing the first animal: " + e.getMessage());
+        }
 
-        //then
-        assertFalse(result);
+        // then - expect exception when placing the second animal
+        assertThrows(IncorrectPositionException.class, () -> map.place(animal2));
+
+        // and ensure the first animal is still at the position
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
     }
+
 
     @Test
     void placeAnimalOnGrassPosition() {
@@ -52,10 +64,14 @@ class GrassFieldTest {
         Animal animal = new Animal(MapDirection.NORTH, grassPosition);
 
         //when
-        boolean result = map.place(animal);
+        try {
+        map.place(animal);
+        }
+        catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
 
         //then
-        assertTrue(result);
         assertEquals(animal, map.objectAt(grassPosition));
     }
 
@@ -78,8 +94,12 @@ class GrassFieldTest {
         //given
         GrassField map = new GrassField(0);
         Animal animal = new Animal(MapDirection.NORTH, new Vector2d(2, 2));
+        try {
         map.place(animal);
-
+        }
+        catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
         //when
         boolean result = map.canMoveTo(new Vector2d(2, 2));
 
@@ -107,7 +127,12 @@ class GrassFieldTest {
         //given
         GrassField map = new GrassField(0);
         Animal animal = new Animal(MapDirection.NORTH, new Vector2d(2, 2));
+        try {
         map.place(animal);
+        }
+        catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
 
         //when
         boolean result = map.isOccupied(new Vector2d(2, 2));
@@ -148,7 +173,12 @@ class GrassFieldTest {
         //given
         GrassField map = new GrassField(0);
         Animal animal = new Animal(MapDirection.NORTH, new Vector2d(2, 2));
+        try {
         map.place(animal);
+        }
+        catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
 
         //when
         WorldElement result = map.objectAt(new Vector2d(2, 2));
@@ -190,7 +220,12 @@ class GrassFieldTest {
         //given
         GrassField map = new GrassField(0);
         Animal animal = new Animal(MapDirection.NORTH, new Vector2d(2, 2));
+        try {
         map.place(animal);
+        }
+        catch (IncorrectPositionException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
 
         //when
         map.move(animal, MoveDirection.RIGHT);
