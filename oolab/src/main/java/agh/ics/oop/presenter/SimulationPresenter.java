@@ -51,9 +51,7 @@ public class SimulationPresenter implements MapChangeListener {
         Simulation simulation = new Simulation(positions, directions, map);
         SimulationEngine engine = new SimulationEngine(List.of(simulation));
         moveDescription.setText("Simulation has been started with the following moves: " + Arrays.toString(args));
-        new Thread(() -> {
-            engine.runSync();
-        }).start();
+        engine.runAsyncInThreadPool();
     }
 
     @Override
@@ -85,7 +83,7 @@ public class SimulationPresenter implements MapChangeListener {
         boundaryRight = map.getCurrentBounds().upperRight().getX();
         boundaryLeft = map.getCurrentBounds().lowerLeft().getX();
         mapWidth = boundaryRight - boundaryLeft + 1;
-        mapHeight = boundaryBottom - boundaryTop + 1;
+        mapHeight = boundaryTop - boundaryBottom + 1;
     }
 
     public void setupLabel() {
@@ -117,8 +115,8 @@ public class SimulationPresenter implements MapChangeListener {
     public void addElements() {
         for (int i = boundaryLeft; i <= boundaryRight; i++) {
             for (int j = boundaryTop; j >= boundaryBottom; j--) {
-                Vector2d pos = new Vector2d(i, j);
-                String content = map.isOccupied(pos) ? map.objectAt(pos).toString() : " ";
+                Vector2d position = new Vector2d(i, j);
+                String content = map.isOccupied(position) ? map.objectAt(position).toString(): " ";
 
                 Label cellLabel = new Label(content);
                 GridPane.setHalignment(cellLabel, HPos.CENTER);

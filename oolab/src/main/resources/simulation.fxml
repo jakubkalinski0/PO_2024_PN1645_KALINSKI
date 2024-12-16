@@ -16,7 +16,7 @@
     <bottom>
         <HBox spacing="10" alignment="CENTER">
             <TextField fx:id="movesList" promptText="Enter moves (allowed moves are as follows: 'f', 'b', 'l', 'r')"/>
-            <Button fx:id="start" onAction="#onSimulationStartClicked"/>
+            <Button fx:id="start" text="Start" onAction="#onSimulationStartClicked"/>
             <Label fx:id="moveDescription" text="Move description is going to be displayed here!"/>
         </HBox>
     </bottom>
