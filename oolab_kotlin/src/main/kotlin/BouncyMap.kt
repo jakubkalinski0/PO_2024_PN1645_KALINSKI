@@ -2,7 +2,7 @@ import agh.ics.oop.model.Animal
 import agh.ics.oop.model.Vector2d
 import agh.ics.oop.model.WorldMap
 
-abstract class BouncyMap(private val width: Int, private val height: Int) : WorldMap {
+class BouncyMap(private val width: Int, private val height: Int) : WorldMap {
     private val animals = mutableMapOf<Vector2d, Animal>()
 
     override fun canMoveTo(position: Vector2d): Boolean {
@@ -14,30 +14,38 @@ abstract class BouncyMap(private val width: Int, private val height: Int) : Worl
     }
 
     override fun place(animal: Animal): Boolean {
-        val position = animal.getPosition()
-        if (!canMoveTo(position)) {
-            throw IllegalArgumentException("Position $position is out of bounds")
+        var currentPosition = animal.position
+        if (!canMoveTo(currentPosition)) {
+            throw IllegalArgumentException("Position $currentPosition is out of bounds")
         }
 
-        if (animals[position] != null) {
-            // Handle bounce behavior
-            val newFreePosition = animals.randomFreePosition(Vector2d(width, height))
-            if (newFreePosition != null) {
-                animals[newFreePosition] = animal
-                return true
+        // If position is occupied, try to find a new position
+        if (animals[currentPosition] != null) {
+            // Try to find a random free position
+            val newPosition = animals.randomFreePosition(Vector2d(width, height))
+            if (newPosition != null) {
+                // Update the animal's position through reflection since it's private
+                val positionField = Animal::class.java.getDeclaredField("_position")
+                positionField.isAccessible = true
+                positionField.set(animal, newPosition)
+                currentPosition = newPosition
             } else {
-                // Replace a random animal
+                // If no free position is available, replace a random existing animal
                 val randomPosition = animals.randomPosition()
                 if (randomPosition != null) {
-                    animals[randomPosition] = animal
-                    return true
+                    // Remove the existing animal and update the new animal's position
+                    animals.remove(randomPosition)
+                    val positionField = Animal::class.java.getDeclaredField("_position")
+                    positionField.isAccessible = true
+                    positionField.set(animal, randomPosition)
+                    currentPosition = randomPosition
+                } else {
+                    return false
                 }
-                return false // No free position and no random position to replace
             }
-        } else {
-            animals[position] = animal
-            return true
         }
-    }
 
+        animals[currentPosition] = animal
+        return true
+    }
 }
