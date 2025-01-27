@@ -23,3 +23,11 @@ data class Vector2d(val x: Int, val y: Int) {
 
     override fun hashCode(): Int = Objects.hash(x, y)
 }
+
+// Extension function for MapDirection to UnitVector
+fun MapDirection.toUnitVector(): Vector2d = when (this) {
+    MapDirection.NORTH -> Vector2d(0, 1)
+    MapDirection.SOUTH -> Vector2d(0, -1)
+    MapDirection.EAST -> Vector2d(1, 0)
+    MapDirection.WEST -> Vector2d(-1, 0)
+}
