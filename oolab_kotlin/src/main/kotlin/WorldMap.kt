@@ -1,7 +1,6 @@
 package agh.ics.oop.model
 
 import agh.ics.oop.model.util.Boundary
-import agh.ics.oop.model.util.IncorrectPositionException
 import java.util.*
 
 interface WorldMap {
@@ -12,4 +11,5 @@ interface WorldMap {
     fun getElements(): Collection<WorldElement>
     fun getCurrentBounds(): Boundary
     fun getId(): UUID
+    fun canMoveTo(newPosition: Vector2d): Boolean
 }
