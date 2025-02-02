@@ -18,8 +18,8 @@ public interface WorldMap extends MoveValidator {
     /**
      * Place a animal on the map.
      *
-     * @param animal The animal to place on the map.
-     * @return True if the animal was placed. The animal cannot be placed if the move is not valid.
+     * @param animal        The animal to place on the map.
+     * @return              True if the animal was placed. The animal cannot be placed if the move is not valid.
      */
     boolean place(Animal animal) throws IncorrectPositionException;
 
@@ -34,8 +34,8 @@ public interface WorldMap extends MoveValidator {
      * confused with canMove since there might be empty positions where the animal
      * cannot move.
      *
-     * @param position Position to check.
-     * @return True if the position is occupied.
+     * @param position      Position to check.
+     * @return              True if the position is occupied.
      */
     boolean isOccupied(Vector2d position);
 

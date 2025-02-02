@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BouncyMapTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-01-27T16:21:42" hostname="LAPTOP-BA33HR0A" time="0.212">
+  <properties/>
+  <testcase name="should place animal at empty position" classname="BouncyMapTest" time="0.035"/>
+  <testcase name="should not place animal outside map bounds" classname="BouncyMapTest" time="0.035"/>
+  <testcase name="should bounce animal to random position on collision" classname="BouncyMapTest" time="0.094"/>
+  <testcase name="should handle completely filled map" classname="BouncyMapTest" time="0.001"/>
+  <testcase name="should allow movement within bounds" classname="BouncyMapTest" time="0.001"/>
+  <testcase name="should prevent movement outside bounds" classname="BouncyMapTest" time="0.001"/>
+  <testcase name="should move animal correctly" classname="BouncyMapTest" time="0.002"/>
+  <testcase name="should prevent movement outside map bounds" classname="BouncyMapTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

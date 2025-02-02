@@ -4,10 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Vector2dTest {
-    /*
-    All methods are tested according to Given-When-Then method, although it isn't possible to fulfill all three points
-    in all the methods.
-    */
 
     // testing String toString method
     @Test

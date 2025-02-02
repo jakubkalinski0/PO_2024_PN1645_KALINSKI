@@ -33,7 +33,7 @@ public class RandomPositionGenerator implements Iterable<Vector2d> {
 
     @Override
     public Iterator<Vector2d> iterator() {
-        return new Iterator<Vector2d>() {
+        return new Iterator<>() {
             private int generatedCount = 0;
 
             @Override
